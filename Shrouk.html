@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Shrouk ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital@1&family=Cairo:wght@400;700&display=swap');
+
+:root{
+  --p:#ff4d6d; --s:#ad1457; --bg:#000;
+}
+*{box-sizing:border-box}
+html { scroll-behavior: smooth; }
+body,html{
+  margin:0; padding:0; background:var(--bg); color:#fff;
+  font-family:'Cairo',sans-serif; overflow-x:hidden;
+}
+
+.screen, .moment {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; 
+  text-align: center; padding: 20px;
+}
+
+.moment {
+  opacity:0; transform:translateY(40px); transition:1s ease;
+  min-height:50vh; padding:60px 20px;
+}
+
+h1,h2{font-family:'Amiri',serif; color:var(--p); width: 100%; text-align: center;}
+
+p {
+  line-height: 1.9; max-width: 680px; font-size: 1.1rem; 
+  margin: 15px auto; text-align: center; 
+}
+
+.btns{
+  display:flex; flex-direction:column; gap:16px; margin: 24px auto; 
+  width: 100%; max-width: 300px;
+}
+
+button{
+  padding:14px 34px; border-radius:40px; border:none;
+  font-size:18px; font-weight:bold; cursor:pointer; transition: 0.3s;
+}
+.primary{background:var(--s); color:#fff; box-shadow:0 0 25px var(--s)}
+.ghost{background:#222; color:#fff; border:2px solid var(--p)}
+.hidden{display:none}
+
+.moment.show{opacity:1; transform:none}
+.line{width:2px; height:90px; background:linear-gradient(var(--s),transparent); margin:26px auto}
+
+.type-container {
+    width: 100%; max-width: 600px; margin: 20px auto; min-height: 80px;
+}
+
+.type { font-size: 1.3rem; color: var(--p); line-height: 1.7; display: inline-block; }
+
+.cursor {
+  display: inline-block; width: 3px; background-color: var(--p);
+  margin-right: 5px; animation: blink 0.8s infinite;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+.heart{position:fixed; top:-5vh; font-size: 20px; z-index: 999; animation:fall 3s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg); opacity:0}}
+
+.counter-box{
+  margin: 30px auto; padding:25px; border-radius:18px;
+  border:1px solid var(--s); background:rgba(173,20,87,.12);
+  text-align: center; width: 95%; max-width: 450px;
+}
+#timer{ color:var(--p); font-weight:bold; font-size: 1.1rem; line-height: 1.6; direction: rtl; }
+
+video{width:92%; max-width:520px; border-radius:18px; border:2px solid var(--s); margin: 20px auto;}
+</style>
+</head>
+
+<body>
+
+<div id="feelScreen" class="screen">
+  <h1>قبل ما نكمل</h1>
+  <p>قوليلي احساسك اي من ناحيتي</p>
+  <div class="btns">
+    <button class="primary" onclick="chooseFeeling('مشتاقة')">مشتاقة</button>
+    <button class="ghost" onclick="chooseFeeling('خايفة')">خايفة</button>
+    <button class="ghost" onclick="chooseFeeling('محتارة')">محتارة</button>
+  </div>
+</div>
+
+<div id="story" style="display:none;">
+  <div class="moment">
+    <h2>أول سطر ليكي</h2>
+    <div class="type-container">
+        <span id="dynamicIntro" class="type"></span><span class="cursor"></span>
+    </div>
+    <div class="line"></div>
+  </div>
+
+    <div class="moment">
+    <h2>أول مرة شوفتك</h2>
+    <p>
+      يوم ما شوفتك قلبي اتخطف مكنتش اعرف انك هتكوني نصي<br>
+      بس كنت عارف ان عيوني مش عايزة تشوف غيرك<br>
+      
+      كل مره بتكلم معاكي بحس انى بهرب من تعب الدنيا<br>
+      وان صوتك هو المكان اللى بستريح فيه بحس انى لقيت نفسى فيكي<br>
+      كل تفاصيلك بتخلينى اصدق ان فيه حب حقيقى لسه موجود<br>
+      بحبك مش بس لان وجودك مريح لان انتي الامان كلو
+    </p>
+    <p>💞🏡🌍 بحبك يا روقتـي</p>
+    <div class="line"></div>
+  </div>
+
+  <div class="moment">
+    <h2>لو رجعنا لنقطة البداية</h2>
+    <p>كنتي هتعملي اي؟</p>
+    <div class="btns">
+      <button class="primary" onclick="chooseDecision('أتمسك')">أتمسك</button>
+      <button class="ghost" onclick="chooseDecision('أسكت')">أسكت</button>
+      <button class="ghost" onclick="chooseDecision('أمشي')">أمشي</button>
+    </div>
+  </div>
+
+  <div class="moment" id="decisionMoment">
+    <div class="type-container">
+        <span id="decisionText" class="type"></span><span class="cursor"></span>
+    </div>
+    <div class="line"></div>
+  </div>
+
+     <div class="moment" id="final-moment">
+    <h2>وعدي ليكي يا روقـا ❤️</h2>
+
+    <p>
+        اوعدك اني عمري ما اكون سبب وجعك
+        ولو الدنيا وجعتك اكون انا حضنك
+        ولو الناس خذلتك اكون انا ضهرك
+    </p>
+
+    <p>
+        اوعدك اني احارب الدنيا كلها عشانك
+        ولو الطريق طول امشيه زحف
+        ولو اتقفلت في وشي ابنيها من جديد
+        المهم نوصل سوا
+    </p>
+
+    <p>
+        اوعدك انك عمرك ما تحسي انك زيادة
+        ولا لحظة شك
+        ولا يوم خوف
+        لانك امان عمري كله
+    </p>
+
+    <p>
+        هنوصل يا روقـا
+        غصب عن اي حد
+        وهنكون في بيت واحد
+        ونكبر مع بعض
+        ونحكي لولادنا ازاي حبنا كان اقوى من الرفض والبعد والوجع
+        انا بحبك اكتر ما الكلام يقدر يشرح
+    </p>
+    
+    
+    
+    
+    
+      <div class="moment" id="decisionMoment">
+    <div class="type-container">
+        <span id="decisionText" class="type"></span><span class="cursor"></span>
+    </div>
+    <div class="line"></div>
+  </div>
+
+  <div class="moment">
+    <h2 style="font-size: 2.2rem;">تاريخ محفور في قلبي</h2>
+    <div class="counter-box" style="border-style: dashed; background: rgba(255, 77, 109, 0.05);">
+        <p style="font-size: 1.4rem; color: var(--p); font-weight: bold;">
+            عرفنا بعض يوم 12 / 7 / 2026
+        </p>
+        <p style="font-size: 1.2rem;">
+            كان يوم الاحد.. اليوم اللي غير حياتي
+        </p>
+        <p style="font-size: 1.5rem; letter-spacing: 2px;">
+            شوفتك الساعة <span style="color: var(--p);">11:38</span> مساءً
+        </p>
+    </div>
+    <div class="line"></div>
+  </div>
+  
+    
+    
+    
+    
+    
+    
+    
+    <div class="counter-box">  
+        <div id="timer">جاري حساب الوقت...</div>  
+    </div>
+  </div>
+
+  <div class="moment">
+    <video id="myVideo" controls playsinline>
+      <source src="https://f.top4top.io/m_3681b428r0.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<audio id="bg" loop>
+  <source src="https://g.top4top.io/m_3681c2pke0.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const feelMap={
+  "مشتاقة": "قولتي انك مشتاقة وعايزك تعرفي ان الشوق اللي عندي ملوش اخر وكأن قلبي مبيعرفش ينبض غير بيكي",
+  "خايفة": "قولتي خايفة اطمني يا روقـا انا موجود عشان اكون امانك وسندك وعمري ما هسيب الخوف يلمس قلبك طول ما انا جنبك",
+  "محتارة": "قولتي محتارة والحيرة بتبان لما يكون القلب فيه مشاعر كبيرة اهدي وخليكي واثقة اننا سوا هنعدي اي حيرة وأي وقت صعب"
+};
+
+
+const decisionMap={
+  "أتمسك": "كنت عارف انك اصيله وهتمسكي فيا ولو اخترتي نكمل ف انا هبني ليكي من قلبي احلي بيت وهفضل في ضهرك وسندك لحد اخر يوم في عمري مش هسيبك لو الدنيا كلها وقفت ضدنا",
+  "أسكت": "حتى لو سكتي انا بقيت حافظك وفاهمك و سكوتك عندي احلى من كلام الدنيا كله وكفاية عليا انك موجودة وجنبي حتى وانتي ساكتة",
+  "أمشي": "لو اخترتي تمشي ف قلبي هيفضل مفتوح ليكي دايما مش هبطل احبك ولا همل وهفضل واقف مستني رجوعك في اي وقت وهيفضل قلبي بيت ملوش مفتاح غير معاكي بحبك اوي"
+};
+
+// وظيفة الكتابة حرفاً بحرف
+function typeWriter(text, elementId, speed = 50) {
+  let i = 0;
+  const element = document.getElementById(elementId);
+  element.innerHTML = ""; // مسح النص القديم
+  
+  function type() {
+    if (i < text.length) {
+      element.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+
+function chooseFeeling(f){
+  document.getElementById('feelScreen').classList.add('hidden');
+  document.getElementById('story').style.display='block';
+  
+  // بدء الكتابة للسطر الأول
+  typeWriter(feelMap[f], "dynamicIntro");
+  
+  const audio = document.getElementById('bg');
+  audio.play().catch(e => console.log("Audio play failed"));
+  
+  startHearts(); 
+  reveal();
+  window.addEventListener('scroll', reveal);
+  startTimer();
+}
+
+function chooseDecision(d){
+  // بدء الكتابة للقرار
+  typeWriter(decisionMap[d], "decisionText");
+  
+  setTimeout(() => {
+    document.getElementById('decisionMoment').scrollIntoView({behavior: 'smooth', block: 'center'});
+  }, 200);
+}
+
+function reveal(){
+  document.querySelectorAll('.moment').forEach(m=>{
+    if(m.getBoundingClientRect().top < window.innerHeight-100){
+      m.classList.add('show');
+    }
+  });
+}
+
+function startHearts(){
+  setInterval(()=>{
+    const h=document.createElement('div');
+    h.className='heart'; h.innerText='❤️';
+    h.style.left=Math.random()*100+'vw';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3000);
+  },450);
+}
+
+function startTimer(){
+  // التاريخ والوقت الجديد (12 يوليو 2026 الساعة 11:38 مساءً بنظام 24 ساعة)
+  const start = new Date("2026-07-12T23:38:00").getTime();
+  setInterval(()=>{
+    const now = new Date().getTime();
+    const diff = now - start;
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById("timer").innerHTML = `بقالنا سوا:<br>${days} يوم و ${hours} ساعة<br>${minutes} دقيقة و ${seconds} ثانية`;
+  }, 1000);
+}
+
+
+// التحكم في الموسيقى
+const myVid = document.getElementById('myVideo');
+const myMusic = document.getElementById('bg');
+
+myVid.onplay = () => myMusic.pause();
+myVid.onpause = () => myMusic.play();
+myVid.onended = () => myMusic.play();
+</script>
+
+</body>
+</html>
