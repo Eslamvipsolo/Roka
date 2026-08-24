@@ -47,6 +47,25 @@ button{
 }
 .primary{background:var(--s); color:#fff; box-shadow:0 0 25px var(--s)}
 .ghost{background:#222; color:#fff; border:2px solid var(--p)}
+
+/* زر "بس بس بس" الملفت بحركة اهتزاز ونبض */
+.tease-btn {
+  background: linear-gradient(135deg, #ff007f, #7928ca);
+  color: #fff;
+  border: 2px solid #ff4d6d;
+  box-shadow: 0 0 25px rgba(255, 77, 109, 0.7);
+  animation: teaseAnim 1.2s infinite ease-in-out;
+}
+.tease-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 35px rgba(255, 77, 109, 1);
+}
+@keyframes teaseAnim {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.06) rotate(-2deg); }
+  75% { transform: scale(1.06) rotate(2deg); }
+}
+
 .hidden{display:none}
 
 .moment.show{opacity:1; transform:none}
@@ -88,6 +107,8 @@ video{width:92%; max-width:520px; border-radius:18px; border:2px solid var(--s);
     <button class="primary" onclick="chooseFeeling('مشتاقة')">مشتاقة</button>
     <button class="ghost" onclick="chooseFeeling('خايفة')">خايفة</button>
     <button class="ghost" onclick="chooseFeeling('محتارة')">محتارة</button>
+    <!-- الزر الجديد "بس بس بس" بالرابط المحدث -->
+    <button class="tease-btn" onclick="openCustomLink()">سر بيني وبينك 😂🤫</button>
   </div>
 </div>
 
@@ -164,17 +185,6 @@ video{width:92%; max-width:520px; border-radius:18px; border:2px solid var(--s);
         انا بحبك اكتر ما الكلام يقدر يشرح
     </p>
     
-    
-    
-    
-    
-      <div class="moment" id="decisionMoment">
-    <div class="type-container">
-        <span id="decisionText" class="type"></span><span class="cursor"></span>
-    </div>
-    <div class="line"></div>
-  </div>
-
   <div class="moment">
     <h2 style="font-size: 2.2rem;">تاريخ محفور في قلبي</h2>
     <div class="counter-box" style="border-style: dashed; background: rgba(255, 77, 109, 0.05);">
@@ -191,13 +201,6 @@ video{width:92%; max-width:520px; border-radius:18px; border:2px solid var(--s);
     <div class="line"></div>
   </div>
   
-    
-    
-    
-    
-    
-    
-    
     <div class="counter-box">  
         <div id="timer">جاري حساب الوقت...</div>  
     </div>
@@ -221,18 +224,21 @@ const feelMap={
   "محتارة": "قولتي محتارة والحيرة بتبان لما يكون القلب فيه مشاعر كبيرة اهدي وخليكي واثقة اننا سوا هنعدي اي حيرة وأي وقت صعب"
 };
 
-
 const decisionMap={
   "أتمسك": "كنت عارف انك اصيله وهتمسكي فيا ولو اخترتي نكمل ف انا هبني ليكي من قلبي احلي بيت وهفضل في ضهرك وسندك لحد اخر يوم في عمري مش هسيبك لو الدنيا كلها وقفت ضدنا",
   "أسكت": "حتى لو سكتي انا بقيت حافظك وفاهمك و سكوتك عندي احلى من كلام الدنيا كله وكفاية عليا انك موجودة وجنبي حتى وانتي ساكتة",
   "أمشي": "لو اخترتي تمشي ف قلبي هيفضل مفتوح ليكي دايما مش هبطل احبك ولا همل وهفضل واقف مستني رجوعك في اي وقت وهيفضل قلبي بيت ملوش مفتاح غير معاكي بحبك اوي"
 };
 
-// وظيفة الكتابة حرفاً بحرف
+// دالة فتح الرابط الجديد
+function openCustomLink() {
+  window.open("https://eslamvipsolo.github.io/Roka/love.html", "_blank");
+}
+
 function typeWriter(text, elementId, speed = 50) {
   let i = 0;
   const element = document.getElementById(elementId);
-  element.innerHTML = ""; // مسح النص القديم
+  element.innerHTML = ""; 
   
   function type() {
     if (i < text.length) {
@@ -248,7 +254,6 @@ function chooseFeeling(f){
   document.getElementById('feelScreen').classList.add('hidden');
   document.getElementById('story').style.display='block';
   
-  // بدء الكتابة للسطر الأول
   typeWriter(feelMap[f], "dynamicIntro");
   
   const audio = document.getElementById('bg');
@@ -261,7 +266,6 @@ function chooseFeeling(f){
 }
 
 function chooseDecision(d){
-  // بدء الكتابة للقرار
   typeWriter(decisionMap[d], "decisionText");
   
   setTimeout(() => {
@@ -288,7 +292,6 @@ function startHearts(){
 }
 
 function startTimer(){
-  // التاريخ والوقت الجديد (12 يوليو 2026 الساعة 11:38 مساءً بنظام 24 ساعة)
   const start = new Date("2026-07-11T23:38:00").getTime();
   setInterval(()=>{
     const now = new Date().getTime();
@@ -301,8 +304,6 @@ function startTimer(){
   }, 1000);
 }
 
-
-// التحكم في الموسيقى
 const myVid = document.getElementById('myVideo');
 const myMusic = document.getElementById('bg');
 
